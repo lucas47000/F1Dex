@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="fr.lucasgarcia.f1dex.FirstFragment"
+        android:name="fr.lucasgarcia.f1dex.display.list.DriversListFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_drivers_list">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
