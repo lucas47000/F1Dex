@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import fr.lucasgarcia.f1dex.Driver
 import fr.lucasgarcia.f1dex.R
+import fr.lucasgarcia.f1dex.models.Ranking
 
 
-class DriversAdapter(private var dataSet: List<Driver>) :
-    RecyclerView.Adapter<DriversAdapter.ViewHolder>() {
+class RankingsAdapter(private var dataSet: List<Ranking>) :
+    RecyclerView.Adapter<RankingsAdapter.ViewHolder>() {
 
     /**
      * Provide a reference to the type of views that you are using
@@ -25,7 +25,7 @@ class DriversAdapter(private var dataSet: List<Driver>) :
         }
     }
 
-    fun updateList(list: List<Driver>){
+    fun updateList(list: List<Ranking>){
         dataSet = list
         notifyDataSetChanged()
     }
@@ -44,8 +44,8 @@ class DriversAdapter(private var dataSet: List<Driver>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        val driver : Driver = dataSet[position]
-        viewHolder.textView.text = driver.firstName + " " + driver.lastName
+        val ranking : Ranking = dataSet[position]
+        viewHolder.textView.text = ranking.driver.toString()
     }
 
     // Return the size of your dataset (invoked by the layout manager)
