@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.GsonBuilder
 import fr.lucasgarcia.f1dex.R
 import fr.lucasgarcia.f1dex.models.Ranking
 import fr.lucasgarcia.f1dex.display.api.RankingApi
 import fr.lucasgarcia.f1dex.display.api.RankingResponse
 import fr.lucasgarcia.f1dex.models.Driver
 import fr.lucasgarcia.f1dex.models.Team
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,16 +47,27 @@ class DriversListFragment : Fragment() {
             adapter=this@DriversListFragment.adapter
         }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api-formula-1.p.rapidapi.com/Rankings/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl("https://api-formula-1.p.rapidapi.com/Rankings/")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
 
-        val rankingApi: RankingApi = retrofit.create(RankingApi::class.java)
+        val gson = GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+            .create()
+        var httpClient = OkHttpClient.Builder()
+
+        val rankingApi = Retrofit.Builder()
+            .baseUrl("https://api-formula-1.p.rapidapi.com")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(httpClient.build())
+            .build()
+            .create(RankingApi::class.java)
+
 
         rankingApi.getRankList("api-formula-1.p.rapidapi.com","2d4819f0e0msh39d5073aa6d6a99p13d476jsn31e18b3821d2", "2019").enqueue(object : Callback<RankingResponse>{
             override fun onFailure(call: Call<RankingResponse>, t: Throwable) {
-                val RankingsList : List<Ranking> = listOf<Ranking>().apply {
+                val RankingsList : List<Ranking> = arrayListOf<Ranking>().apply {
                     //add(1, Driver(1,"lewis hamilton","CECI EST UNE IMAGE"), Team(1,"Mercedes","CECI EST UNE IMAGE DU LOGO"),1,2,3,4)
                 }
 
@@ -65,7 +78,9 @@ class DriversListFragment : Fragment() {
             {
                 if(response.body() != null){
                     val rankingResponse : RankingResponse? = response.body()!!
-                        adapter.updateList(rankingResponse.response)
+                    if (rankingResponse != null) {
+                        adapter.updateList(rankingResponse.response.toList())
+                    }
                 }
             }
         })

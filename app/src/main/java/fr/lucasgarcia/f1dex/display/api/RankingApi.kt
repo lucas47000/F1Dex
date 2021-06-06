@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 
 interface RankingApi{
-    @GET("drivers")
+    @GET("/rankings/drivers")
     fun getRankList(
         //integration de la clé dans le cadre d'une API privée (payante)
         @Header("x-rapidapi-host") xRapidApiHost: String,
