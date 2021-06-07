@@ -45,7 +45,13 @@ class RankingsAdapter(private var dataSet: List<Ranking>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         val ranking : Ranking = dataSet[position]
-        viewHolder.textView.text = ranking.driver.toString()
+        viewHolder.textView.text =
+                ranking.position.toString() + "." + ranking.driver.name +
+                " (" + ranking.points.toString() + ".pts)/ " +
+                ranking.team.name + System.getProperty("line.separator") +
+                ranking.driver.image
+//               ranking.points.toString() + "Pts" + System.getProperty("line.separator") +
+//              "Wins : " + ranking.wins.toString()
     }
 
     // Return the size of your dataset (invoked by the layout manager)

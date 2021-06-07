@@ -12,8 +12,6 @@ import fr.lucasgarcia.f1dex.R
 import fr.lucasgarcia.f1dex.models.Ranking
 import fr.lucasgarcia.f1dex.display.api.RankingApi
 import fr.lucasgarcia.f1dex.display.api.RankingResponse
-import fr.lucasgarcia.f1dex.models.Driver
-import fr.lucasgarcia.f1dex.models.Team
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class DriversListFragment : Fragment() {
+class RankingsListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val adapter = RankingsAdapter(listOf())
     private val layoutManager = LinearLayoutManager(context)
@@ -35,22 +33,18 @@ class DriversListFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_drivers_list, container, false)
+        return inflater.inflate(R.layout.fragment_rankings_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView=view.findViewById(R.id.drivers_recyclerview)
+        recyclerView=view.findViewById(R.id.rankings_recyclerview)
         recyclerView.apply {
-            layoutManager = this@DriversListFragment.layoutManager
-            adapter=this@DriversListFragment.adapter
+            layoutManager = this@RankingsListFragment.layoutManager
+            adapter=this@RankingsListFragment.adapter
         }
 
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl("https://api-formula-1.p.rapidapi.com/Rankings/")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
 
         val gson = GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
@@ -65,7 +59,7 @@ class DriversListFragment : Fragment() {
             .create(RankingApi::class.java)
 
 
-        rankingApi.getRankList("api-formula-1.p.rapidapi.com","2d4819f0e0msh39d5073aa6d6a99p13d476jsn31e18b3821d2", "2019").enqueue(object : Callback<RankingResponse>{
+        rankingApi.getRankList("api-formula-1.p.rapidapi.com","2d4819f0e0msh39d5073aa6d6a99p13d476jsn31e18b3821d2", "2021").enqueue(object : Callback<RankingResponse>{
             override fun onFailure(call: Call<RankingResponse>, t: Throwable) {
                 val RankingsList : List<Ranking> = arrayListOf<Ranking>().apply {
                     //add(1, Driver(1,"lewis hamilton","CECI EST UNE IMAGE"), Team(1,"Mercedes","CECI EST UNE IMAGE DU LOGO"),1,2,3,4)
@@ -84,8 +78,8 @@ class DriversListFragment : Fragment() {
                 }
             }
         })
-
-
-
     }
+
+
+
 }

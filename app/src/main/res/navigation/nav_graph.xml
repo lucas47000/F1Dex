@@ -7,14 +7,15 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="fr.lucasgarcia.f1dex.display.list.DriversListFragment"
+        android:name="fr.lucasgarcia.f1dex.display.list.RankingsListFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_drivers_list">
+        tools:layout="@layout/fragment_rankings_list">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/SecondFragment"
         android:name="fr.lucasgarcia.f1dex.SecondFragment"
