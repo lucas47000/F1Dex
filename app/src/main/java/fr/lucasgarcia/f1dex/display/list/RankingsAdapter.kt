@@ -9,9 +9,7 @@ import fr.lucasgarcia.f1dex.R
 import fr.lucasgarcia.f1dex.models.Ranking
 
 
-class RankingsAdapter(private var dataSet: List<Ranking>) :
-    RecyclerView.Adapter<RankingsAdapter.ViewHolder>() {
-
+class RankingsAdapter(private var dataSet: List<Ranking>, var listener: ((Ranking)-> Unit)? = null) : RecyclerView.Adapter<RankingsAdapter.ViewHolder>() {
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
@@ -21,7 +19,7 @@ class RankingsAdapter(private var dataSet: List<Ranking>) :
 
         init {
             // Define click listener for the ViewHolder's View.
-            textView = view.findViewById(R.id.driver_name)
+            textView = view.findViewById(R.id.ranking_id)
         }
     }
 
@@ -34,8 +32,7 @@ class RankingsAdapter(private var dataSet: List<Ranking>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.driver_element, viewGroup, false)
-
+            .inflate(R.layout.ranking_item, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -50,8 +47,10 @@ class RankingsAdapter(private var dataSet: List<Ranking>) :
                 " (" + ranking.points.toString() + ".pts)/ " +
                 ranking.team.name + System.getProperty("line.separator") +
                 ranking.driver.image
-//               ranking.points.toString() + "Pts" + System.getProperty("line.separator") +
-//              "Wins : " + ranking.wins.toString()
+        viewHolder.itemView.setOnClickListener{
+            listener?.invoke(ranking)
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

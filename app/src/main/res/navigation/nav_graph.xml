@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/RankingsListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/RankingsListFragment"
         android:name="fr.lucasgarcia.f1dex.display.list.RankingsListFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/RankingsListFragment_label"
         tools:layout="@layout/fragment_rankings_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/navigateToRankingDetailFragment"
+            app:destination="@id/RankingDetailFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="fr.lucasgarcia.f1dex.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:id="@+id/RankingDetailFragment"
+        android:name="fr.lucasgarcia.f1dex.RankingDetailFragment"
+        android:label="@string/RankingDetailFragment_label"
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/navigateToRankingsListFragment"
+            app:destination="@id/RankingsListFragment" />
     </fragment>
 </navigation>
